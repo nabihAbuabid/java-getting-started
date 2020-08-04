@@ -16,6 +16,7 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import java.io.File;
 import java.net.URI;
@@ -83,7 +84,7 @@ public class SenderConfig {
         properties.put(ProducerConfig.LINGER_MS_CONFIG, 1);
         properties.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432);
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);;
         return properties;
     }
 

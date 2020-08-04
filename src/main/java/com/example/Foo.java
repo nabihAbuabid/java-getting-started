@@ -1,6 +1,7 @@
 package com.example;
 
 public class Foo {
+
     private String name;
     private String description;
 
