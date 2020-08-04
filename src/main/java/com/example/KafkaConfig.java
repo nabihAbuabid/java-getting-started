@@ -17,10 +17,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
-import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.springframework.kafka.core.DefaultKafkaProducerFactory;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.core.*;
+import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import java.io.File;
@@ -112,12 +110,18 @@ public class KafkaConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, String>
-    kafkaListenerContainerFactory() {
+    public ConsumerFactory<String, Foo> consumerFactory() {
+        return new DefaultKafkaConsumerFactory(
+                buildConfigs(),
+                new StringDeserializer(),
+                new JsonDeserializer(Foo.class));
+    }
 
-        ConcurrentKafkaListenerContainerFactory<String, String> factory =
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, Foo> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, Foo> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(new DefaultKafkaConsumerFactory(buildConfigs()));
+        factory.setConsumerFactory(consumerFactory());
         return factory;
     }
 
