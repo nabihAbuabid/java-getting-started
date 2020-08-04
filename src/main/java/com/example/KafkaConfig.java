@@ -97,7 +97,7 @@ public class KafkaConfig {
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, Joiner.on(",").join(hostPorts));
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, groupid);
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         return properties;
     }
 
