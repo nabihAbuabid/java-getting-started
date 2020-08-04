@@ -14,7 +14,7 @@ public class Consumer {
 
 
 
-    @KafkaListener(topics = "#{${app.topic.example}}", groupId = "#{${app.groupid.example}}")
+    @KafkaListener(topics = "tanana-56300.messages", groupId = "tanana-56300.demo-group")
     public void listenWithHeaders(@Payload Foo message,
                                   @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
         LOG.info("Received Message: " + message.toString() + "from partition: " + partition);
